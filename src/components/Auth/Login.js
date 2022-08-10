@@ -28,6 +28,7 @@ class Login extends Component {
       username: e.target.value,
     });
   };
+
   handleOnChangePasswrord = (e) => {
     this.setState({
       password: e.target.value,
@@ -58,11 +59,13 @@ class Login extends Component {
       }
     }
   };
+
   handleShowHidePassword = () => {
     this.setState({
       isShowPassword: !this.state.isShowPassword,
     });
   };
+
   render() {
     return (
       <div className="login-background">
