@@ -33,3 +33,44 @@
     color: #0d6efd !important;
   }
 }
+
+.modal-user-container{
+  .modal-content{
+    .modal-header{
+      height: 50px;
+      button{
+        background-color: transparent !important;
+        color: white;
+        border: none;
+        font-size: xx-large;
+        font-weight: 600;
+      }
+    }
+  }
+  .modal-user-body{
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    .input-container{
+        display: flex ;
+        flex-direction:column ;
+        width: 48%;
+
+        &.max-w{
+          width: 100%;
+        }
+        input{
+          border-radius: 3px;
+          border: 1px solid grey;
+          height: 30px;
+          outline: none;
+          padding: 0 10px;
+        }
+      }
+  }
+ .modal-footer{
+    button{
+      padding: 0 20px;
+    }
+ }
+}
