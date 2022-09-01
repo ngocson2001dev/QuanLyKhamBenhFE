@@ -61,6 +61,7 @@ class ModelUser extends Component {
             })
         }
     }
+
     render() {
         return (
             <Modal

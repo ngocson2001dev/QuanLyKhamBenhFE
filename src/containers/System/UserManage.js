@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { hanldeGetAllUser, createNewUserService } from "../../services/userService";
+import { hanldeGetAllUser, createNewUserService, deleteUserService } from "../../services/userService";
 import ModelUser from "./ModelUser";
 import { toast } from "react-toastify";
 
@@ -59,6 +59,22 @@ class UserManage extends Component {
     }
 
   }
+
+  handleDeleteUser = async (user) => {
+    try {
+      let res = await deleteUserService(user.id);
+      if (res && res.errCode === 0) {
+        toast.success(res.message, { autoClose: 3000 });
+        this.getAllUsers();
+      }
+      else {
+        toast.error(res.message, { autoClose: 3000 });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   render() {
     let listUsers = this.state.listUsers;
@@ -118,7 +134,7 @@ class UserManage extends Component {
                             </button>
                           </td>
                           <td className="text-center">
-                            <button className="buton">
+                            <button className="buton" onClick={() => this.handleDeleteUser(item)}>
                               <i className="fas fa-trash-alt"></i>
                             </button>
                           </td>
