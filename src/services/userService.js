@@ -8,5 +8,9 @@ const hanldeGetAllUser = (InputId) => {
   return axios.get(`/api/get-all-users?id=${InputId}`);
 };
 
+const createNewUserService = (data) => {
+  return axios.post(`/api/create-new-user`, data);
+};
 
-export { hanldeLoginAPI, hanldeGetAllUser };
+
+export { hanldeLoginAPI, hanldeGetAllUser, createNewUserService };

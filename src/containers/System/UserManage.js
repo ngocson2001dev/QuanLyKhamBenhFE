@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { hanldeGetAllUser, } from "../../services/userService";
+import { hanldeGetAllUser, createNewUserService } from "../../services/userService";
+import ModelUser from "./ModelUser";
+import { toast } from "react-toastify";
 
 
 class UserManage extends Component {
@@ -27,15 +29,53 @@ class UserManage extends Component {
     }
   }
 
+  handleAddNewUser = () => {
+    this.setState({
+      isOpenModalUser: true,
+    })
+  }
+
+  toggleUserModal = () => {
+    this.setState({
+      isOpenModalUser: !this.state.isOpenModalUser,
+    })
+  }
+
+  createNewUser = async (data) => {
+    try {
+      let res = await createNewUserService(data);
+      if (res && res.errCode === 0) {
+        toast.success(res.message, { autoClose: 3000 });
+        this.getAllUsers();
+        this.setState({
+          isOpenModalUser: false
+        })
+      } else {
+        toast.error(res.message, { autoClose: 3000 });
+      }
+    } catch (error) {
+      toast.error('Thêm mới User thất bại.Hệ thống đã xảy ra lỗi!', { autoClose: 3000 });
+      console.log(error);
+    }
+
+  }
+
   render() {
     let listUsers = this.state.listUsers;
     return (
       <>
+        <ModelUser
+          isOpen={this.state.isOpenModalUser}
+          toggleFromParent={this.toggleUserModal}
+          createNewUser={this.createNewUser}
+        />
+
         <div className="user-container">
           <div className="title textcenter">Manage users</div>
           <div className="mx-1">
             <button
-              className="btn btn-primary px-3">
+              className="btn btn-primary px-3"
+              onClick={() => this.handleAddNewUser()}>
               <i className="fas fa-user-plus"></i> Add new users</button>
           </div>
           <div className="user-table">
