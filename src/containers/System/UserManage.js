@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { hanldeGetAllUser, createNewUserService, deleteUserService } from "../../services/userService";
+import { hanldeGetAllUser, createNewUserService, deleteUserService, editUserService } from "../../services/userService";
 import ModelUser from "./ModelUser";
+import ModelEditUser from "./ModelEditUser";
 import { toast } from "react-toastify";
 
 
@@ -12,6 +13,8 @@ class UserManage extends Component {
     this.state = {
       listUsers: [],
       isOpenModalUser: false,
+      isOpenModalEditUser: false,
+      userEdit: {}
     };
   }
 
@@ -75,6 +78,33 @@ class UserManage extends Component {
     }
   }
 
+  handleEditUser = (user) => {
+    this.setState({
+      isOpenModalEditUser: true,
+      userEdit: user,
+    })
+  }
+
+  toggleUserEditModal = () => {
+    this.setState({
+      isOpenModalEditUser: !this.state.isOpenModalEditUser,
+    })
+  }
+
+  editUser = async (user) => {
+    try {
+      let res = await editUserService(user);
+      if (res && res.errCode === 0) {
+        toast.success(res.message, { autoClose: 3000 });
+        this.getAllUsers();
+      }
+      else {
+        toast.error(res.message, { autoClose: 3000 });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   render() {
     let listUsers = this.state.listUsers;
@@ -85,7 +115,14 @@ class UserManage extends Component {
           toggleFromParent={this.toggleUserModal}
           createNewUser={this.createNewUser}
         />
-
+        {this.state.isOpenModalEditUser &&
+          <ModelEditUser
+            isOpen={this.state.isOpenModalEditUser}
+            toggleFromParent={this.toggleUserEditModal}
+            currentUser={this.state.userEdit}
+            editUser={this.editUser}
+          />
+        }
         <div className="user-container">
           <div className="title textcenter">Manage users</div>
           <div className="mx-1">
@@ -116,7 +153,7 @@ class UserManage extends Component {
                       <>
                         <tr>
                           <td>{item.email}</td>
-                          <td>{item.fisrstName}</td>
+                          <td>{item.firstName}</td>
                           <td>{item.lastName}</td>
                           <td>{item.gender === 1 ? "Male" : "Female"}</td>
                           <td>{item.phoneNumber}</td>
@@ -129,7 +166,7 @@ class UserManage extends Component {
                                 : "Patient"}
                           </td>
                           <td className="text-center">
-                            <button className="buton">
+                            <button className="buton" onClick={() => this.handleEditUser(item)}>
                               <i className="fas fa-edit"></i>
                             </button>
                           </td>
