@@ -3,15 +3,15 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import './HomeHeader.scss';
 import logo from "../../assets/images/logo.svg";
-import lgKhamChuyenKhoa from "../../assets/images/khamchuyenkhoa.png";
-import lgKhamTuXa from "../../assets/images/khamtuxa.png";
-import lgKhamTongQuat from "../../assets/images/khamtongquat.png";
-import lgXetNghiemYHoc from "../../assets/images/xetnghiemyhoc.png";
-import lgSucKhoeTinhThan from "../../assets/images/suckhoetinhthan.png";
-import lgKhamNhaKhoa from "../../assets/images/khamnhakhoa.png";
-import lgGoiPhauThuat from "../../assets/images/goiphauthuat.jpg";
-import lgSanPhamYTe from "../../assets/images/khamtainha.png";
-import lgSucKhoeDoanhNghiep from "../../assets/images/khamnhakhoa.png";
+import lgKhamChuyenKhoa from "../../assets/images/menu-icon/khamchuyenkhoa.png";
+import lgKhamTuXa from "../../assets/images/menu-icon/khamtuxa.png";
+import lgKhamTongQuat from "../../assets/images/menu-icon/khamtongquat.png";
+import lgXetNghiemYHoc from "../../assets/images/menu-icon/xetnghiemyhoc.png";
+import lgSucKhoeTinhThan from "../../assets/images/menu-icon/suckhoetinhthan.png";
+import lgKhamNhaKhoa from "../../assets/images/menu-icon/khamnhakhoa.png";
+import lgGoiPhauThuat from "../../assets/images/menu-icon/goiphauthuat.png";
+import lgSanPhamYTe from "../../assets/images/menu-icon/khamtainha.png";
+import lgSucKhoeDoanhNghiep from "../../assets/images/menu-icon/khamnhakhoa.png";
 import { Fragment } from "react";
 import { FormattedMessage } from 'react-intl'; //Component thay doi ngon ngu
 import { LANGUAGES } from "../../utils"
