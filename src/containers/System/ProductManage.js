@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-class UserRedux extends Component {
+class ProductManage extends Component {
 
     state = {
 
@@ -29,4 +29,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserRedux);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductManage);
