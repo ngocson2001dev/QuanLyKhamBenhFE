@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { getAllCodeService } from '../../../services/userService'
 import { LANGUAGES } from "../../../utils"
+import * as actions from "../../../store/actions"
 
 class UserRedux extends Component {
     constructor(props) {
@@ -13,19 +14,28 @@ class UserRedux extends Component {
     }
 
     async componentDidMount() {
-        try {
-            let res = await getAllCodeService('gender')
-            if (res && res.errCode === 0) {
-                this.setState({
-                    genderArr: res.data
-                })
-            }
+        this.props.getAPIGenderStart();
+        // try {
+        //     let res = await getAllCodeService('gender')
+        //     if (res && res.errCode === 0) {
+        //         this.setState({
+        //             genderArr: res.data
+        //         })
+        //     }
 
-        } catch (error) {
-            console.log(error);
-        }
+        // } catch (error) {
+        //     console.log(error);
+        // }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        //nếu props quá khứ khác props hiện tại re-render
+        if (prevProps.genderRedux !== this.props.genderRedux) {
+            this.setState({
+                genderArr: this.props.genderRedux
+            })
+        }
+    }
 
     render() {
         let listGender = this.state.genderArr;
@@ -92,8 +102,8 @@ class UserRedux extends Component {
                             </div>
                         </form>
                     </div>
-                </div >
-            </div >
+                </div>
+            </div>
         )
     }
 
@@ -102,11 +112,13 @@ class UserRedux extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
+        genderRedux: state.admin.genders
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getAPIGenderStart: () => dispatch(actions.fetchGenderStart())
     };
 };
 
