@@ -48,6 +48,7 @@
         "phoneNumber": "Số điện thoại",
         "address": "Địa chỉ",
         "gender": "Giới tính",
+        "position": "Chức danh",
         "role": "Vai trò",
         "image": "Hình ảnh",
         "save": "Lưu"

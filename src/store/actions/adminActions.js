@@ -32,3 +32,54 @@ export const fetchGenderSuccess = (genderData) => ({
 export const fetchGenderFailed = () => ({
     type: actionTypes.FETCH_GENDER_FAILED,
 });
+
+export const fetchPositionStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService("position");
+            if (res && res.errCode === 0) {
+                dispatch(fetchPositionSuccess(res.data))
+            }
+            else {
+                dispatch(fetchPositionFailed());
+            }
+
+        } catch (error) {
+            dispatch(fetchPositionFailed());
+            console.log('fetchPositionFailed', error);
+        }
+    }
+};
+export const fetchPositionSuccess = (data) => ({
+    type: actionTypes.FETCH_POSITION_SUCCESS,
+    data: data
+});
+
+export const fetchPositionFailed = () => ({
+    type: actionTypes.FETCH_POSITION_FAIDED,
+});
+export const fetchRoleStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService("role");
+            if (res && res.errCode === 0) {
+                dispatch(fetchRoleSuccess(res.data))
+            }
+            else {
+                dispatch(fetchRoleFailed());
+            }
+
+        } catch (error) {
+            dispatch(fetchRoleFailed());
+            console.log('fetchRoleFailed', error);
+        }
+    }
+};
+export const fetchRoleSuccess = (data) => ({
+    type: actionTypes.FETCH_ROLE_SUCCESS,
+    data: data
+});
+
+export const fetchRoleFailed = () => ({
+    type: actionTypes.FETCH_ROLE_FAIDED,
+});

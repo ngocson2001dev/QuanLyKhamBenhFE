@@ -48,6 +48,7 @@
         "phoneNumber": "Phone number",
         "address": "Address",
         "gender": "Gender",
+        "position": "Position",
         "role": "Role",
         "image": "Image",
         "save": "Save"
