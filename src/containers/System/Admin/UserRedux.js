@@ -40,6 +40,7 @@ class UserRedux extends Component {
     render() {
         let listGender = this.state.genderArr;
         let language = this.props.language;
+        let isLoadingGender = this.props.isLoadingGender;
         return (
             <div className="user-redux-container" >
                 <div className="title">
@@ -48,6 +49,7 @@ class UserRedux extends Component {
                 <div className="container">
                     <div className="row">
                         <h5><FormattedMessage id="manage-user.add" /></h5>
+                        <h6>{isLoadingGender === true ? "loading data..." : ""}</h6>
                         <form className="row g-3">
                             <div className="form-group col-md-3">
                                 <label htmlFor="Email"><FormattedMessage id="manage-user.email" /></label>
@@ -112,7 +114,8 @@ class UserRedux extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        genderRedux: state.admin.genders
+        genderRedux: state.admin.genders,
+        isLoadingGender: state.admin.isLoadingGender
     };
 };
 
