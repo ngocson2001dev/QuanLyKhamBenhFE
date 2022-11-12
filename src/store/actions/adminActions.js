@@ -1,5 +1,6 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService, createNewUserService, hanldeGetAllUser } from "../../services/userService";
+import { getAllCodeService, createNewUserService, hanldeGetAllUser, deleteUserService } from "../../services/userService";
+import { toast } from "react-toastify";
 
 //Fetch dữ liệu từ API lấy danh sách các giới tính
 
@@ -89,7 +90,7 @@ export const fetchAllUsersStart = () => {
         try {
             let res = await hanldeGetAllUser("all");
             if (res && res.errCode === 0) {
-                dispatch(fetchAllUsersSuccess(res.users))
+                dispatch(fetchAllUsersSuccess(res.users.reverse()))
             }
             else {
                 dispatch(fetchAllUsersFailed());
@@ -119,6 +120,7 @@ export const createUser = (data) => {
             if (res && res.errCode === 0) {
                 dispatch(saveUserSuccess())
                 dispatch(fetchAllUsersStart())
+                toast.success("Thêm mới người dùng thành công !")
             }
             else {
                 dispatch(saveUserFailed());
@@ -137,4 +139,31 @@ export const saveUserSuccess = () => ({
 
 export const saveUserFailed = () => ({
     type: actionTypes.SAVE_USER_FAIDED,
+})
+
+export const deleteUser = (userId) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await deleteUserService(userId);
+            if (res && res.errCode === 0) {
+                dispatch(deleteUserSuccess())
+                dispatch(fetchAllUsersStart())
+                toast.success("Xóa người dùng thành công !")
+            }
+            else {
+                dispatch(deleteUserFailed());
+            }
+
+        } catch (error) {
+            dispatch(deleteUserFailed());
+            console.log(error);
+        }
+    }
+};
+export const deleteUserSuccess = () => ({
+    type: actionTypes.DELETE_USER_SUCCESS,
+})
+
+export const deleteUserFailed = () => ({
+    type: actionTypes.DELETE_USER_FAIDED,
 })
