@@ -148,23 +148,16 @@ class UserManage extends Component {
               </thead>
               <tbody>
                 {listUsers &&
-                  listUsers.map((item) => {
+                  listUsers.map((item, index) => {
                     return (
                       <>
-                        <tr>
+                        <tr id={index}>
                           <td>{item.email}</td>
                           <td>{item.firstName}</td>
                           <td>{item.lastName}</td>
-                          <td>{item.gender === 1 ? "Male" : "Female"}</td>
+                          <td>{item.gender}</td>
                           <td>{item.phoneNumber}</td>
                           <td>{item.address}</td>
-                          <td>
-                            {item.roleId === "1"
-                              ? "Admin"
-                              : item.roleId === "2"
-                                ? "Docter"
-                                : "Patient"}
-                          </td>
                           <td className="text-center">
                             <button className="buton" onClick={() => this.handleEditUser(item)}>
                               <i className="fas fa-edit"></i>

@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService, createNewUserService } from "../../services/userService";
+import { getAllCodeService, createNewUserService, hanldeGetAllUser } from "../../services/userService";
 
 //Fetch dữ liệu từ API lấy danh sách các giới tính
 
@@ -84,12 +84,41 @@ export const fetchRoleFailed = () => ({
     type: actionTypes.FETCH_ROLE_FAIDED,
 });
 
+export const fetchAllUsersStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await hanldeGetAllUser("all");
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllUsersSuccess(res.users))
+            }
+            else {
+                dispatch(fetchAllUsersFailed());
+            }
+
+        } catch (error) {
+            dispatch(fetchAllUsersFailed());
+            console.log('fetchRoleFailed', error);
+        }
+    }
+};
+
+export const fetchAllUsersSuccess = (users) => ({
+    type: actionTypes.FETCH_ALL_USERS_SUCCESS,
+    data: users,
+})
+
+export const fetchAllUsersFailed = () => ({
+    type: actionTypes.FETCH_ALL_USERS_FAIDED,
+    data: [],
+})
+
 export const createUser = (data) => {
     return async (dispatch, getState) => {
         try {
             let res = await createNewUserService(data);
             if (res && res.errCode === 0) {
                 dispatch(saveUserSuccess())
+                dispatch(fetchAllUsersStart())
             }
             else {
                 dispatch(saveUserFailed());

@@ -7,7 +7,7 @@ import * as actions from "../../../store/actions"
 import './UserRedux.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-
+import TableManageUser from '../Admin/TableManageUser'
 
 class UserRedux extends Component {
     constructor(props) {
@@ -107,6 +107,7 @@ class UserRedux extends Component {
             roleId: this.state.role,
             positionId: this.state.position
         });
+
 
     }
 
@@ -255,6 +256,9 @@ class UserRedux extends Component {
                         <div className="col-12">
                             <button onClick={() => this.handleSaveUser()} className="btn btn-primary"><FormattedMessage id="manage-user.save" /></button>
                         </div>
+                    </div>
+                    <div className="col-12">
+                        <TableManageUser />
                     </div>
 
                     {this.state.isOpen && (
