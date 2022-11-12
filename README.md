@@ -66,3 +66,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### Để triển khai nhiều ngôn ngữ cho trang Web
+    =>Khai báo cụm từ trong file vi.json & en.json -> cấu hình nn file appReducer.js
