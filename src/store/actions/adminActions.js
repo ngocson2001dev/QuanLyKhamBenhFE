@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService, createNewUserService, hanldeGetAllUser, deleteUserService } from "../../services/userService";
+import { getAllCodeService, createNewUserService, hanldeGetAllUser, deleteUserService, editUserService } from "../../services/userService";
 import { toast } from "react-toastify";
 
 //Fetch dữ liệu từ API lấy danh sách các giới tính
@@ -167,4 +167,33 @@ export const deleteUserSuccess = () => ({
 
 export const deleteUserFailed = () => ({
     type: actionTypes.DELETE_USER_FAIDED,
+})
+
+export const editUser = (user) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await editUserService(user);
+            if (res && res.errCode === 0) {
+                dispatch(editUserSuccess())
+                dispatch(fetchAllUsersStart())
+                toast.success("Cập nhật người dùng thành công !")
+            }
+            else {
+                toast.error("Cập nhật người dùng thất bại !")
+                dispatch(editUserFailed());
+            }
+
+        } catch (error) {
+            toast.error("Cập nhật người dùng thất bại !")
+            dispatch(editUserFailed());
+            console.log(error);
+        }
+    }
+};
+export const editUserSuccess = () => ({
+    type: actionTypes.EDIT_USER_SUCCESS,
+})
+
+export const editUserFailed = () => ({
+    type: actionTypes.EDIT_USER_FAIDED,
 })
