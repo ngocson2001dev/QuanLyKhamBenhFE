@@ -72,6 +72,25 @@ class UserRedux extends Component {
                 position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : ''
             })
         }
+        //Reset value input
+        if (prevProps.users !== this.props.users) {
+            let arrGenders = this.props.genderRedux;
+            let arrRoles = this.props.roleRedux;
+            let arrPositions = this.props.positionRedux;
+
+            this.setState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                address: '',
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : '',
+                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
+                avatar: ''
+            })
+        }
     }
 
     handleOnChangeImage = (e) => {
@@ -139,7 +158,7 @@ class UserRedux extends Component {
         let listPosition = this.state.positionArr;
         let language = this.props.language;
         let isLoadingGender = this.props.isLoadingGender;
-
+        let { email, password, firstName, lastName, phoneNumber, address, gender, position, role, avatar } = this.state;
         return (
             <div className="user-redux-container" >
                 <div className="title">
@@ -154,6 +173,7 @@ class UserRedux extends Component {
                                 <label htmlFor="Email"><FormattedMessage id="manage-user.email" /></label>
                                 <input type="email" className="form-control" id="Email" placeholder="Email"
                                     name='email'
+                                    value={email}
                                     onChange={(e) => this.onChangeInput(e, 'email')}
                                 />
                             </div>
@@ -161,6 +181,7 @@ class UserRedux extends Component {
                                 <label htmlFor="Password"><FormattedMessage id="manage-user.password" /></label>
                                 <input type="password" className="form-control" id="Password" placeholder="Password"
                                     name='password'
+                                    value={password}
                                     onChange={(e) => this.onChangeInput(e, 'password')}
                                 />
                             </div>
@@ -168,6 +189,7 @@ class UserRedux extends Component {
                                 <label htmlFor="FirstName"><FormattedMessage id="manage-user.firstName" /></label>
                                 <input type="text" className="form-control" id="FirstName" placeholder="First name"
                                     name='firstName'
+                                    value={firstName}
                                     onChange={(e) => this.onChangeInput(e, 'firstName')}
                                 />
                             </div>
@@ -175,6 +197,7 @@ class UserRedux extends Component {
                                 <label htmlFor="LastName"><FormattedMessage id="manage-user.lastName" /></label>
                                 <input type="text" className="form-control" id="LastName" placeholder="Last name"
                                     name='lastName'
+                                    value={lastName}
                                     onChange={(e) => this.onChangeInput(e, 'lastName')}
                                 />
                             </div>
@@ -182,6 +205,7 @@ class UserRedux extends Component {
                                 <label htmlFor="PhoneNumber"><FormattedMessage id="manage-user.phoneNumber" /></label>
                                 <input type="text" className="form-control" id="PhoneNumber" placeholder="Phone number"
                                     name='phoneNumber'
+                                    value={phoneNumber}
                                     onChange={(e) => this.onChangeInput(e, 'phoneNumber')}
                                 />
                             </div>
@@ -189,12 +213,14 @@ class UserRedux extends Component {
                                 <label htmlFor="Address"><FormattedMessage id="manage-user.address" /></label>
                                 <input type="text" className="form-control" id="Address" placeholder="Address"
                                     name='address'
+                                    value={address}
                                     onChange={(e) => this.onChangeInput(e, 'address')}
                                 />
                             </div>
                             <div className="col-md-3">
                                 <label htmlFor="Gender" className="form-label"><FormattedMessage id="manage-user.gender" /></label>
                                 <select id="Gender" className="form-select"
+                                    value={gender}
                                     onChange={(e) => this.onChangeInput(e, 'gender')}
                                 >
                                     {listGender && listGender.length > 0 &&
@@ -210,6 +236,7 @@ class UserRedux extends Component {
                                 <label htmlFor="Position" className="form-label"><FormattedMessage id="manage-user.position" /></label>
                                 <select id="Position" className="form-select"
                                     onChange={(e) => this.onChangeInput(e, 'position')}
+                                    value={position}
                                 >
                                     {listPosition && listPosition.length > 0 &&
                                         listPosition.map((item, index) => {
@@ -226,6 +253,7 @@ class UserRedux extends Component {
                                 <label htmlFor="Role" className="form-label"><FormattedMessage id="manage-user.role" /></label>
                                 <select id="Role" className="form-select"
                                     onChange={(e) => this.onChangeInput(e, 'role')}
+                                    value={role}
                                 >
                                     {listRole && listRole.length > 0 &&
                                         listRole.map((item, index) => {
@@ -281,6 +309,7 @@ const mapStateToProps = state => {
         isLoadingGender: state.admin.isLoadingGender,
         roleRedux: state.admin.roles,
         positionRedux: state.admin.positions,
+        users: state.admin.users,
     };
 };
 

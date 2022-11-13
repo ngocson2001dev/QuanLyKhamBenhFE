@@ -123,6 +123,7 @@ export const createUser = (data) => {
                 toast.success("Thêm mới người dùng thành công !")
             }
             else {
+                toast.error(res.message);
                 dispatch(saveUserFailed());
             }
 
