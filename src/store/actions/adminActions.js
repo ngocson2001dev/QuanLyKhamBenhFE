@@ -1,5 +1,8 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService, createNewUserService, hanldeGetAllUser, deleteUserService, editUserService } from "../../services/userService";
+import {
+    getAllCodeService, createNewUserService, hanldeGetAllUser, deleteUserService, editUserService,
+    getTopDoctorHomeService
+} from "../../services/userService";
 import { toast } from "react-toastify";
 
 //Fetch dữ liệu từ API lấy danh sách các giới tính
@@ -196,4 +199,31 @@ export const editUserSuccess = () => ({
 
 export const editUserFailed = () => ({
     type: actionTypes.EDIT_USER_FAIDED,
+})
+
+
+export const fetchTopDoctors = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getTopDoctorHomeService('');
+            if (res && res.errCode === 0) {
+                dispatch(fetchTopDoctorsSuccess(res.data))
+            }
+            else {
+                dispatch(fetchTopDoctorsFailed());
+            }
+        } catch (error) {
+            dispatch(fetchTopDoctorsFailed());
+            console.log(error);
+        }
+    }
+};
+
+export const fetchTopDoctorsSuccess = (topDoctors) => ({
+    type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,
+    data: topDoctors,
+})
+
+export const fetchTopDoctorsFailed = () => ({
+    type: actionTypes.FETCH_TOP_DOCTORS_FAIDED,
 })
