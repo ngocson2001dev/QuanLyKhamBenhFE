@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter as Router } from "connected-react-router";
 import { history } from "../redux";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import {
   userIsAuthenticated,
   userIsNotAuthenticated,
@@ -12,7 +13,7 @@ import { path } from "../utils";
 import Home from "../routes/Home";
 import Login from "../components/Auth/Login";
 import System from "../routes/System";
-import { CustomToastCloseButton } from "../components/CustomToast";
+// import { CustomToastCloseButton } from "../components/CustomToast";
 import HomePage from "./HomePage/HomePage";
 import CustomScrollbars from "../components/CustomScrollbars";
 
@@ -60,17 +61,17 @@ class App extends Component {
               </div>
             </CustomScrollbars>
             <ToastContainer
-              className="toast-container"
-              toastClassName="toast-item"
-              bodyClassName="toast-item-body"
-              autoClose={false}
-              hideProgressBar={true}
-              pauseOnHover={false}
-              pauseOnFocusLoss={true}
-              closeOnClick={false}
-              draggable={false}
-              closeButton={<CustomToastCloseButton />}
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
             />
+            <ToastContainer />
           </div>
         </Router>
       </Fragment>
