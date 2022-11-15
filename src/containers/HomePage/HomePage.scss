@@ -144,6 +144,10 @@
       color: gray !important;
   }
 
+  .slick-disabled {
+      display: none !important;
+  }
+
   .slick-prev,
   .slick-next {
       height: 48px !important;
